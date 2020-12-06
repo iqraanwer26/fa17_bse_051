@@ -1,4 +1,11 @@
+import 'package:fa17_bse_051/main.dart/';
 import 'package:flutter/material.dart';
+import 'package:fa17_bse_051/SimpleDice.dart';
+import 'package:fa17_bse_051/HardDice.dart';
+
+
+
+
 class  HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -6,12 +13,13 @@ class  HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: Text('DICE App'),
+        title: Text('Dice App'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -23,49 +31,45 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Expanded(
 
-                child: Padding(
-                  padding: EdgeInsets.all(15.0),
-                  child: FlatButton(
-                    textColor: Colors.black,
-                    color: Colors.blue[700],
-                    child: Text(
-                      'Simple',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25.0,
+                  child: Padding(
+                    padding: EdgeInsets.all(15.0),
+                    child: FlatButton(
+                      textColor: Colors.black,
+                      color: Colors.grey,
+                      child: Text(
+                        'Simple Level',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20.0,
+                        ),
                       ),
+                      onPressed: simpleDice,
                     ),
-                    onPressed: () {
-                      debugPrint('simple');
-                    },
                   ),
                 ),
-          ),
                 Expanded(
 
                   child: Padding(
                     padding: EdgeInsets.all(15.0),
                     child: FlatButton(
 
-                      textColor: Colors.white,
-                      color: Colors.blue[700],
+                      textColor: Colors.black,
+                      color: Colors.grey,
                       child: Text(
-                        'Hard',
+                        'Hard Level',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 25.0,
+                          fontSize: 20.0,
                         ),
                       ),
-                      onPressed: () {
-                        debugPrint('hard');
-                      },
+                      onPressed: hardDice,
                     ),
                   ),
                 ),
               ],
             ),
-
           ],
+
         ),
       ),
       drawer: Drawer(
@@ -73,8 +77,11 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.zero,
           children: [
             UserAccountsDrawerHeader(
-                accountName: Text('Iqra Anwer'),
+                accountName: Text('Iqra'),
                 accountEmail: Text('iqraa264@gmail.com'),
+                currentAccountPicture: GestureDetector(
+                  onTap: ()=> _showSecondPage(context) ,
+                )
             ),
             ListTile(
               leading: Icon(Icons.person),
@@ -85,7 +92,7 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               leading: Icon(Icons.phone_android),
               title: Text('Phone'),
-              subtitle: Text('03006639665'),
+              subtitle: Text('03046789321'),
               trailing: Icon(Icons.edit),
             ),
             ListTile(
@@ -98,6 +105,30 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
 
+    );
+  }
+  void simpleDice() {
+    setState(() {
+      Navigator.push(context, MaterialPageRoute(builder: (context) =>  SimpleDice()));
+    });
+  }
+
+  void hardDice() {
+    setState(() {
+      Navigator.push(context, MaterialPageRoute(builder: (context) =>  HardDice()));
+    });
+  }
+  void _showSecondPage(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (ctx) => Scaffold(
+          body: Center(
+            child: Hero(
+              tag: 'my-hero-animation-tag',
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
